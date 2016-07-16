@@ -3,12 +3,11 @@ package com.vishnus1224.commitsearch.di.module;
 import android.app.Application;
 
 import com.vishnus1224.commitsearch.di.scope.PerApplication;
+import com.vishnus1224.commitsearch.threads.BaseExecutor;
 import com.vishnus1224.commitsearch.threads.BaseScheduler;
-import com.vishnus1224.commitsearch.threads.IoScheduler;
+import com.vishnus1224.commitsearch.threads.IoExecutor;
 import com.vishnus1224.commitsearch.threads.MainThreadScheduler;
 import com.vishnus1224.commitsearch.webservice.GithubWebService;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -99,13 +98,13 @@ public class ApplicationModule {
 
     /**
      * Provides a schedulers for performing tasks on the io thread.
-     * @param ioScheduler IoScheduler instance.
+     * @param ioExecutor IoScheduler instance.
      * @return IoScheduler instance.
      */
-    @Provides @PerApplication @Named("io")
-    BaseScheduler provideExecutionScheduler(IoScheduler ioScheduler){
+    @Provides @PerApplication
+    BaseExecutor provideExecutionScheduler(IoExecutor ioExecutor){
 
-        return ioScheduler;
+        return ioExecutor;
 
     }
 
@@ -114,7 +113,7 @@ public class ApplicationModule {
      * @param mainThreadScheduler MainThreadScheduler instance.
      * @return MainThreadScheduler instance.
      */
-    @Provides @PerApplication @Named("main")
+    @Provides @PerApplication
     BaseScheduler provideMainThreadScheduler(MainThreadScheduler mainThreadScheduler){
 
         return mainThreadScheduler;
