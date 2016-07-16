@@ -8,6 +8,10 @@ import com.vishnus1224.commitsearch.datastore.CommitsDataStore;
 import com.vishnus1224.commitsearch.di.scope.PerActivity;
 import com.vishnus1224.commitsearch.repository.CommitRepositoryImpl;
 import com.vishnus1224.commitsearch.repository.CommitsRepository;
+import com.vishnus1224.commitsearch.usecase.GetCommitsUseCase;
+import com.vishnus1224.commitsearch.usecase.UseCase;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -48,6 +52,18 @@ public class ActivityModule {
     CommitsRepository provideCommitsRepository(CommitRepositoryImpl commitRepositoryImpl){
 
         return commitRepositoryImpl;
+
+    }
+
+    /**
+     * Provides a named use case instance i.e use case for getting commits from the server.
+     * @param getCommitsUseCase GetCommitsUseCase instance.
+     * @return GetCommitsUseCase instance.
+     */
+    @Provides @PerActivity @Named("getCommits")
+    UseCase provideGetCommitsUseCase(GetCommitsUseCase getCommitsUseCase){
+
+        return getCommitsUseCase;
 
     }
 
