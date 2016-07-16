@@ -20,4 +20,10 @@ public class CommitWrapper {
     public Commit getCommit() {
         return commit;
     }
+
+    public static final CommitWrapper mockCommitWrapper(Commit commit){
+
+        return new CommitWrapper("test", commit);
+
+    }
 }

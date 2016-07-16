@@ -21,4 +21,14 @@ public class Author {
     public String getEmail() {
         return email;
     }
+
+    /**
+     * Mock author object used for testing.
+     * @return
+     */
+    public static final Author mockAuthor(){
+
+        return new Author("Sam", "Thomson");
+
+    }
 }

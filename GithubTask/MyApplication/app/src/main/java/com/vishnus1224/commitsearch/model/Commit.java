@@ -20,4 +20,10 @@ public class Commit {
     public String getMessage() {
         return message;
     }
+
+    public static final Commit mockCommit(Author author){
+
+        return new Commit(author, "This is a test message");
+
+    }
 }
