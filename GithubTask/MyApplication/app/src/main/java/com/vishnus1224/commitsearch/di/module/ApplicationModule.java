@@ -2,9 +2,13 @@ package com.vishnus1224.commitsearch.di.module;
 
 import android.app.Application;
 
+import com.vishnus1224.commitsearch.di.scope.PerApplication;
+import com.vishnus1224.commitsearch.threads.BaseScheduler;
+import com.vishnus1224.commitsearch.threads.IoScheduler;
+import com.vishnus1224.commitsearch.threads.MainThreadScheduler;
 import com.vishnus1224.commitsearch.webservice.GithubWebService;
 
-import javax.inject.Singleton;
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,7 +35,7 @@ public class ApplicationModule {
      * Provide a single application instance wherever requested.
      * @return Single instance of the current application.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     Application provideApplication(){
 
         return application;
@@ -41,7 +45,7 @@ public class ApplicationModule {
      * Provides a single instance of OkHttpClient throughout the application.
      * @return Instance of OkHttpClient.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     OkHttpClient provideOkHttpClient(){
         return new OkHttpClient.Builder().build();
     }
@@ -50,7 +54,7 @@ public class ApplicationModule {
      * Provides a single instance of GSON converter factory required by retrofit to map JSON string to JAVA objects.
      * @return Instance of GSONConverterFactory.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     Converter.Factory provideGSONConverterFactory(){
         return GsonConverterFactory.create();
     }
@@ -59,7 +63,7 @@ public class ApplicationModule {
      * Provides a single instance of RxJavaCallAdapterFactory needed by retrofit to return Observables.
      * @return RxJavaCallAdapterFactory instance.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     CallAdapter.Factory provideRxCallAdapterFactory(){
         return RxJavaCallAdapterFactory.create();
     }
@@ -71,7 +75,7 @@ public class ApplicationModule {
      * @param callAdapterFactory CallAdapterFactory instance.
      * @return Retrofit instance.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     Retrofit provideRetrofit(OkHttpClient okHttpClient, Converter.Factory converterFactory, CallAdapter.Factory callAdapterFactory){
         return new Retrofit.Builder()
                 .baseUrl(GithubWebService.BASE_URL)
@@ -86,10 +90,34 @@ public class ApplicationModule {
      * @param retrofit Retrofit instance.
      * @return Github WebService instance.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     GithubWebService provideGithubWebService(Retrofit retrofit){
 
         return retrofit.create(GithubWebService.class);
+
+    }
+
+    /**
+     * Provides a schedulers for performing tasks on the io thread.
+     * @param ioScheduler IoScheduler instance.
+     * @return IoScheduler instance.
+     */
+    @Provides @PerApplication @Named("io")
+    BaseScheduler provideExecutionScheduler(IoScheduler ioScheduler){
+
+        return ioScheduler;
+
+    }
+
+    /**
+     * Provides a scheduler for performing tasks on the main thread.
+     * @param mainThreadScheduler MainThreadScheduler instance.
+     * @return MainThreadScheduler instance.
+     */
+    @Provides @PerApplication @Named("main")
+    BaseScheduler provideMainThreadScheduler(MainThreadScheduler mainThreadScheduler){
+
+        return mainThreadScheduler;
 
     }
 }
