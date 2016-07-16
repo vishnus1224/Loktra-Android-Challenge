@@ -1,6 +1,7 @@
 package com.vishnus1224.commitsearch.di.module;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 
 import com.vishnus1224.commitsearch.datastore.CloudCommitsDataStore;
 import com.vishnus1224.commitsearch.datastore.CommitsDataStore;
@@ -47,6 +48,13 @@ public class ActivityModule {
     CommitsRepository provideCommitsRepository(CommitRepositoryImpl commitRepositoryImpl){
 
         return commitRepositoryImpl;
+
+    }
+
+    @Provides @PerActivity
+    LayoutInflater provideLayoutInflater(){
+
+        return activity.getLayoutInflater();
 
     }
 
