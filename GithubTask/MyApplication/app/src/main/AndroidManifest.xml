@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:name=".GithubCommits"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.CommitsActivity">
+        <activity android:name=".ui.activity.CommitsActivity"
+            android:configChanges="screenSize|orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
