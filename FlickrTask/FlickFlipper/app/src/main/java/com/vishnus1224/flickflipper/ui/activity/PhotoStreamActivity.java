@@ -1,9 +1,11 @@
-package com.vishnus1224.flickflipper;
+package com.vishnus1224.flickflipper.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PhotoStreamActivity extends AppCompatActivity {
+import com.vishnus1224.flickflipper.R;
+
+public class PhotoStreamActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
