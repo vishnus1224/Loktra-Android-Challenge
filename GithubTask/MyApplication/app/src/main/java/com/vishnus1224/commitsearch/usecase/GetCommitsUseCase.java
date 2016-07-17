@@ -25,9 +25,9 @@ public class GetCommitsUseCase extends UseCase {
     }
 
     @Override
-    Observable buildUseCase() {
+    Observable buildUseCase(int page) {
 
-        return commitsRepository.getCommits();
+        return commitsRepository.getCommits(page);
 
     }
 }

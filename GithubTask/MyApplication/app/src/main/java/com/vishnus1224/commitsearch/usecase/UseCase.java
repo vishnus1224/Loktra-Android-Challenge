@@ -14,7 +14,7 @@ import rx.Subscription;
  */
 public abstract class UseCase {
 
-    abstract Observable buildUseCase();
+    abstract Observable buildUseCase(int page);
 
     private Subscription subscription;
 
@@ -38,11 +38,12 @@ public abstract class UseCase {
 
     /**
      * Executes the use case.
+     * @param page Page number of the results.
      * @param subscriber Subscriber instance.
      */
-    public void execute(Subscriber subscriber) {
+    public void execute(int page, Subscriber subscriber) {
 
-        subscription = buildUseCase().subscribeOn(executionScheduler.scheduler())
+        subscription = buildUseCase(page).subscribeOn(executionScheduler.scheduler())
                 .observeOn(mainThreadScheduler.scheduler())
                 .subscribe(subscriber);
 
