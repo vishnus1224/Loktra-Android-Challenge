@@ -15,4 +15,6 @@ public interface CommitsView {
     void hideProgressBar();
 
     void showCommits(List<CommitWrapper> commitWrapperList);
+
+    void showError(String message);
 }
