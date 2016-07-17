@@ -38,7 +38,8 @@ public class GetCommitsUseCaseTest {
     @Test
     public void testBuildUseCase() throws Exception {
 
-        getCommitsUseCase.buildUseCase();
+        getCommitsUseCase
+                .buildUseCase(anyInt());
 
         verify(commitsRepository).getCommits(anyInt());
 

@@ -22,6 +22,8 @@ import static org.mockito.Mockito.*;
  */
 public class UseCaseTest {
 
+    private final int FAKE_PAGE = 54;
+
     @Mock
     BaseExecutor executionScheduler;
 
@@ -50,7 +52,7 @@ public class UseCaseTest {
 
         when(mainThreadScheduler.scheduler()).thenReturn(testScheduler);
 
-        useCase.execute(testSubscriber);
+        useCase.execute(FAKE_PAGE, testSubscriber);
 
         //check that the size of the events is 0.
         assertThat(testSubscriber.getOnNextEvents().size(), is(0));
@@ -61,7 +63,7 @@ public class UseCaseTest {
 
         TestSubscriber testSubscriber = new TestSubscriber();
 
-        useCase.execute(testSubscriber);
+        useCase.execute(FAKE_PAGE, testSubscriber);
 
         useCase.unSubscribe();
 
@@ -77,7 +79,7 @@ public class UseCaseTest {
         }
 
         @Override
-        Observable buildUseCase() {
+        Observable buildUseCase(int page) {
             return Observable.empty();
         }
     }
