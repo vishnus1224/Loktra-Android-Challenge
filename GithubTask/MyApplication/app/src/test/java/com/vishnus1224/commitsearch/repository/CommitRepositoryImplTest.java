@@ -24,6 +24,8 @@ import static org.mockito.Mockito.*;
  */
 public class CommitRepositoryImplTest {
 
+    private final int FAKE_PAGE = 23;
+
     @Mock
     CloudCommitsDataStore cloudCommitsDataStore;
 
@@ -39,12 +41,12 @@ public class CommitRepositoryImplTest {
     @Test
     public void testGetCommits() throws Exception {
 
-        when(cloudCommitsDataStore.getCommits()).thenReturn(mockCommitList());
+        when(cloudCommitsDataStore.getCommits(anyInt())).thenReturn(mockCommitList());
 
         TestSubscriber<List<CommitWrapper>> testSubscriber = new TestSubscriber<>();
 
         //subscribe to the observable using the test subscriber.
-        commitRepository.getCommits().subscribe(testSubscriber);
+        commitRepository.getCommits(FAKE_PAGE).subscribe(testSubscriber);
 
         //assert that the observable completed.
         testSubscriber.assertCompleted();
@@ -53,7 +55,7 @@ public class CommitRepositoryImplTest {
         testSubscriber.assertNoErrors();
 
         //verify that the get commits methods is called on the data store.
-        verify(cloudCommitsDataStore).getCommits();
+        verify(cloudCommitsDataStore).getCommits(FAKE_PAGE);
 
         List<CommitWrapper> commitWrapperList = testSubscriber.getOnNextEvents().get(0);
 

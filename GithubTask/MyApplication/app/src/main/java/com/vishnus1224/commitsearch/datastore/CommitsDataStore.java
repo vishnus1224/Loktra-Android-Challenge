@@ -14,7 +14,8 @@ public interface CommitsDataStore {
 
     /**
      * Get a list of commits from the underlying data store.
+     * @param page Page number of the results
      * @return A list of commits;
      */
-    Observable<List<CommitWrapper>> getCommits();
+    Observable<List<CommitWrapper>> getCommits(int page);
 }

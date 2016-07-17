@@ -5,6 +5,7 @@ import com.vishnus1224.commitsearch.model.CommitWrapper;
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -16,9 +17,10 @@ public interface GithubWebService {
     String BASE_URL = "https://api.github.com/";
 
     /**
-     * Get a list of commits for the repository specified by the url.
+     * * Get a list of commits for the repository specified by the url.
+     * @param page Page number of the results.
      * @return A list of commits.
      */
     @GET("repos/rails/rails/commits")
-    Observable<List<CommitWrapper>> getCommits();
+    Observable<List<CommitWrapper>> getCommits(@Query("page") int page);
 }

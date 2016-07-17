@@ -14,7 +14,8 @@ public interface CommitsRepository {
 
     /**
      * Get a list of commits from the repository.
+     * @param page Page number of the results.
      * @return Observable emitting a list of commits.
      */
-    Observable<List<CommitWrapper>> getCommits();
+    Observable<List<CommitWrapper>> getCommits(int page);
 }

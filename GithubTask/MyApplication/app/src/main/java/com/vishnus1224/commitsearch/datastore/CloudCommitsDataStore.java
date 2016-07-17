@@ -25,9 +25,9 @@ public class CloudCommitsDataStore implements CommitsDataStore {
     }
 
     @Override
-    public Observable<List<CommitWrapper>> getCommits() {
+    public Observable<List<CommitWrapper>> getCommits(int page) {
 
-        return githubWebService.getCommits();
+        return githubWebService.getCommits(page);
 
     }
 }

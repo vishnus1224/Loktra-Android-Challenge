@@ -21,7 +21,7 @@ public class CommitRepositoryImpl implements CommitsRepository {
     }
 
     @Override
-    public Observable<List<CommitWrapper>> getCommits() {
-        return cloudCommitsDataStore.getCommits();
+    public Observable<List<CommitWrapper>> getCommits(int page) {
+        return cloudCommitsDataStore.getCommits(page);
     }
 }

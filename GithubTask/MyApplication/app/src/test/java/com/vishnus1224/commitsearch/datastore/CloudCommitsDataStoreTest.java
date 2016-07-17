@@ -24,6 +24,8 @@ import static org.mockito.Mockito.*;
  */
 public class CloudCommitsDataStoreTest {
 
+    private final int FAKE_PAGE = 100;
+
     @Mock
     private GithubWebService githubWebService;
 
@@ -43,12 +45,12 @@ public class CloudCommitsDataStoreTest {
     public void testGetCommits() throws Exception {
 
         //when the web service is called, then return a mock list.
-        when(githubWebService.getCommits()).thenReturn(mockCommitList());
+        when(githubWebService.getCommits(anyInt())).thenReturn(mockCommitList());
 
         TestSubscriber<List<CommitWrapper>> testSubscriber = new TestSubscriber<>();
 
         //subscribe to the observable using the test subscriber.
-        cloudCommitsDataStore.getCommits().subscribe(testSubscriber);
+        cloudCommitsDataStore.getCommits(FAKE_PAGE).subscribe(testSubscriber);
 
         //assert that the observable completed.
         testSubscriber.assertCompleted();
@@ -57,7 +59,7 @@ public class CloudCommitsDataStoreTest {
         testSubscriber.assertNoErrors();
 
         //verify that the get commits methods is called on the web service.
-        verify(githubWebService).getCommits();
+        verify(githubWebService).getCommits(FAKE_PAGE);
 
         List<CommitWrapper> commitWrapperList = testSubscriber.getOnNextEvents().get(0);
 
