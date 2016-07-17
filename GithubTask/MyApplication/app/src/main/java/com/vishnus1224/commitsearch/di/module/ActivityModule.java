@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import com.vishnus1224.commitsearch.datastore.CloudCommitsDataStore;
 import com.vishnus1224.commitsearch.datastore.CommitsDataStore;
 import com.vishnus1224.commitsearch.di.scope.PerActivity;
+import com.vishnus1224.commitsearch.model.QueryParamPage;
 import com.vishnus1224.commitsearch.repository.CommitRepositoryImpl;
 import com.vishnus1224.commitsearch.repository.CommitsRepository;
 import com.vishnus1224.commitsearch.usecase.GetCommitsUseCase;
@@ -72,6 +73,12 @@ public class ActivityModule {
 
         return activity.getLayoutInflater();
 
+    }
+
+    @Provides @PerActivity
+    QueryParamPage provideQueryParamPage(){
+
+        return new QueryParamPage(1);
     }
 
 
