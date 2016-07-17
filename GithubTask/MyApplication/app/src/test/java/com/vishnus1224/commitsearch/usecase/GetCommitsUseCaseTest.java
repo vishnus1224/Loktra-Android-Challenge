@@ -40,7 +40,7 @@ public class GetCommitsUseCaseTest {
 
         getCommitsUseCase.buildUseCase();
 
-        verify(commitsRepository).getCommits();
+        verify(commitsRepository).getCommits(anyInt());
 
         //verify no more interactions are happening with the repository.
         verifyNoMoreInteractions(commitsRepository);
