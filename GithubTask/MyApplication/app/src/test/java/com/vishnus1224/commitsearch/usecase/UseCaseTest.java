@@ -1,5 +1,6 @@
 package com.vishnus1224.commitsearch.usecase;
 
+import com.vishnus1224.commitsearch.threads.BaseExecutor;
 import com.vishnus1224.commitsearch.threads.BaseScheduler;
 
 import org.junit.Assert;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class UseCaseTest {
 
     @Mock
-    BaseScheduler executionScheduler;
+    BaseExecutor executionScheduler;
 
     @Mock
     BaseScheduler mainThreadScheduler;
@@ -71,7 +72,7 @@ public class UseCaseTest {
 
     private final class TestUseCase extends UseCase {
 
-        public TestUseCase(BaseScheduler executionScheduler, BaseScheduler mainThreadScheduler) {
+        public TestUseCase(BaseExecutor executionScheduler, BaseScheduler mainThreadScheduler) {
             super(executionScheduler, mainThreadScheduler);
         }
 

@@ -1,6 +1,7 @@
 package com.vishnus1224.commitsearch.usecase;
 
 import com.vishnus1224.commitsearch.repository.CommitsRepository;
+import com.vishnus1224.commitsearch.threads.BaseExecutor;
 import com.vishnus1224.commitsearch.threads.BaseScheduler;
 
 import org.junit.Before;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class GetCommitsUseCaseTest {
 
     @Mock
-    BaseScheduler ioScheduler;
+    BaseExecutor ioExecutor;
 
     @Mock
     BaseScheduler mainThreadScheduler;
@@ -31,7 +32,7 @@ public class GetCommitsUseCaseTest {
 
         MockitoAnnotations.initMocks(this);
 
-        getCommitsUseCase = new GetCommitsUseCase(commitsRepository, ioScheduler, mainThreadScheduler);
+        getCommitsUseCase = new GetCommitsUseCase(commitsRepository, ioExecutor, mainThreadScheduler);
     }
 
     @Test
@@ -45,7 +46,7 @@ public class GetCommitsUseCaseTest {
         verifyNoMoreInteractions(commitsRepository);
 
         //verify that no interactions happened on the io thread mock.
-        verifyZeroInteractions(ioScheduler);
+        verifyZeroInteractions(ioExecutor);
 
         //verify that no interactions happened on the main thread mock.
         verifyZeroInteractions(mainThreadScheduler);

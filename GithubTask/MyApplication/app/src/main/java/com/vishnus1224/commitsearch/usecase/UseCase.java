@@ -1,5 +1,6 @@
 package com.vishnus1224.commitsearch.usecase;
 
+import com.vishnus1224.commitsearch.threads.BaseExecutor;
 import com.vishnus1224.commitsearch.threads.BaseScheduler;
 
 import rx.Observable;
@@ -20,14 +21,14 @@ public abstract class UseCase {
     /**
      * Scheduler used to execute the use case.
      */
-    private final BaseScheduler executionScheduler;
+    private final BaseExecutor executionScheduler;
 
     /**
      * Scheduler for updating the UI i.e. the main thread scheduler.
      */
     private final BaseScheduler mainThreadScheduler;
 
-    public UseCase(BaseScheduler executionScheduler, BaseScheduler mainThreadScheduler){
+    public UseCase(BaseExecutor executionScheduler, BaseScheduler mainThreadScheduler){
 
         this.executionScheduler = executionScheduler;
 
