@@ -32,8 +32,6 @@ public class CommitsListAdapter extends BaseAdapter {
 
     public void updateDataSet(List<CommitWrapper> commitWrapperList){
 
-        this.commitWrapperList.clear();
-
         this.commitWrapperList.addAll(commitWrapperList);
 
         notifyDataSetChanged();
