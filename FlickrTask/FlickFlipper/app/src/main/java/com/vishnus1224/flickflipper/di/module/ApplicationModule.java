@@ -9,8 +9,6 @@ import com.vishnus1224.flickflipper.threads.IoExecutor;
 import com.vishnus1224.flickflipper.threads.MainThreadScheduler;
 import com.vishnus1224.flickflipper.webservice.FlickrWebService;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -38,7 +36,7 @@ public class ApplicationModule {
      * Provides the current application.
      * @return Current application instance.
      */
-    @Provides @Singleton
+    @Provides @PerApplication
     Application provideApplication(){
 
         return application;
