@@ -63,4 +63,15 @@ public class CommitsPresenterTest {
         verify(useCase).execute(anyInt(), any(Subscriber.class));
 
     }
+
+    @Test
+    public void testRetryLoadingCommits(){
+
+        commitsPresenter.retryLoadingCommits();
+
+        verifyZeroInteractions(commitsView);
+        verify(commitsView, never()).showProgressBar();
+        verify(useCase).execute(anyInt(), any(Subscriber.class));
+
+    }
 }

@@ -63,6 +63,19 @@ public class CommitsPresenter {
 
     }
 
+    public void retryLoadingCommits(){
+
+        //show the progress bar when loading results for the first time.
+        if(queryParamPage.getPageNumber() == 1){
+
+            commitsView.showProgressBar();
+
+        }
+
+        useCase.execute(queryParamPage.getPageNumber(), new CommitWrapperSubscriber());
+
+    }
+
     private final class CommitWrapperSubscriber extends Subscriber<List<CommitWrapper>> {
 
 
@@ -77,6 +90,8 @@ public class CommitsPresenter {
         public void onError(Throwable e) {
 
             commitsView.hideProgressBar();
+
+            commitsView.showError("An error occurred");
 
         }
 
