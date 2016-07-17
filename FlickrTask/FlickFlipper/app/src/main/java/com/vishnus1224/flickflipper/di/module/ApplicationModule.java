@@ -3,6 +3,10 @@ package com.vishnus1224.flickflipper.di.module;
 import android.app.Application;
 
 import com.vishnus1224.flickflipper.di.scope.PerApplication;
+import com.vishnus1224.flickflipper.threads.BaseExecutor;
+import com.vishnus1224.flickflipper.threads.BaseScheduler;
+import com.vishnus1224.flickflipper.threads.IoExecutor;
+import com.vishnus1224.flickflipper.threads.MainThreadScheduler;
 import com.vishnus1224.flickflipper.webservice.FlickrWebService;
 
 import javax.inject.Singleton;
@@ -94,6 +98,30 @@ public class ApplicationModule {
     FlickrWebService provideFlickrWebService(Retrofit retrofit){
 
         return retrofit.create(FlickrWebService.class);
+
+    }
+
+    /**
+     * Provides a schedulers for performing tasks on the io thread.
+     * @param ioExecutor IoScheduler instance.
+     * @return IoScheduler instance.
+     */
+    @Provides @PerApplication
+    BaseExecutor provideExecutionScheduler(IoExecutor ioExecutor){
+
+        return ioExecutor;
+
+    }
+
+    /**
+     * Provides a scheduler for performing tasks on the main thread.
+     * @param mainThreadScheduler MainThreadScheduler instance.
+     * @return MainThreadScheduler instance.
+     */
+    @Provides @PerApplication
+    BaseScheduler provideMainThreadScheduler(MainThreadScheduler mainThreadScheduler){
+
+        return mainThreadScheduler;
 
     }
 
