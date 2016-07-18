@@ -5,6 +5,8 @@ import android.app.Activity;
 import com.vishnus1224.flickflipper.datasource.PhotoStreamCloudDataSource;
 import com.vishnus1224.flickflipper.datasource.PhotoStreamDataSource;
 import com.vishnus1224.flickflipper.di.scope.PerActivity;
+import com.vishnus1224.flickflipper.repository.PhotoStreamRepository;
+import com.vishnus1224.flickflipper.repository.PhotoStreamRepositoryImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -41,6 +43,18 @@ public class ActivityModule {
     PhotoStreamDataSource provideCloudDataSource(PhotoStreamCloudDataSource photoStreamCloudDataSource){
 
         return photoStreamCloudDataSource;
+
+    }
+
+    /**
+     * Provides the repository implementation for accessing the public photo stream.
+     * @param photoStreamRepositoryImpl PhotoStreamRepositoryImpl instance.
+     * @return PhotoStreamRepositoryImpl instance.
+     */
+    @Provides @PerActivity
+    PhotoStreamRepository providePhotoStreamRepository(PhotoStreamRepositoryImpl photoStreamRepositoryImpl){
+
+        return photoStreamRepositoryImpl;
 
     }
 }
