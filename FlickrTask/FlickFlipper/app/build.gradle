@@ -45,4 +45,7 @@ dependencies {
 
     //design support library dependency
     compile 'com.android.support:design:23.1.1'
+
+    //picasso dependency
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
