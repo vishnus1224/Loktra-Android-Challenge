@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MockDataFactory {
 
-    public static final PhotoInfoWrapper mockPhotoInfoWrapperList(){
+    public static final PhotoInfoWrapper mockPhotoInfoWrapper(){
 
         List<PhotoInfo> photoInfoList = new ArrayList<>();
 
