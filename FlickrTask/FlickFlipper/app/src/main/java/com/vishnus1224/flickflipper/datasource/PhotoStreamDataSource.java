@@ -10,7 +10,7 @@ import rx.Observable;
 public interface PhotoStreamDataSource {
 
     /**
-     * Get observable emitting items containing photo info.
+     * Get observable emitting items in the public photo stream.
      * @return Items from the public photo stream.
      */
     Observable<PhotoInfoWrapper> getPublicPhotoStream();
