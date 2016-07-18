@@ -1,6 +1,7 @@
 package com.vishnus1224.flickflipper.di.module;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 
 import com.vishnus1224.flickflipper.datasource.PhotoStreamCloudDataSource;
 import com.vishnus1224.flickflipper.datasource.PhotoStreamDataSource;
@@ -71,6 +72,13 @@ public class ActivityModule {
     UseCase providePublicPhotoStreamUseCase(GetPublicPhotoStreamUseCase getPublicPhotoStreamUseCase){
 
         return getPublicPhotoStreamUseCase;
+
+    }
+
+    @Provides @PerActivity
+    LayoutInflater provideLayoutInflater(){
+
+        return activity.getLayoutInflater();
 
     }
 }
