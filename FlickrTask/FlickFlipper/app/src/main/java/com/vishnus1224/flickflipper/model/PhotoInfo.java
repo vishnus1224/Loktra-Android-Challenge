@@ -6,10 +6,17 @@ package com.vishnus1224.flickflipper.model;
  */
 public class PhotoInfo {
 
+    public enum Side{
+
+        FRONT, BACK
+
+    }
+
     private String title;
     private String link;
     private PhotoInfoMedia media;
     private String description;
+    private Side visibleSide = Side.FRONT;
 
     public String getTitle() {
         return title;
@@ -25,6 +32,14 @@ public class PhotoInfo {
 
     public String getDescription() {
         return description;
+    }
+
+    public Side getVisibleSide() {
+        return visibleSide;
+    }
+
+    public void setVisibleSide(Side visibleSide) {
+        this.visibleSide = visibleSide;
     }
 
     public PhotoInfo(String title, String link, PhotoInfoMedia media, String description) {
