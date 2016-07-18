@@ -7,6 +7,10 @@ import com.vishnus1224.flickflipper.datasource.PhotoStreamDataSource;
 import com.vishnus1224.flickflipper.di.scope.PerActivity;
 import com.vishnus1224.flickflipper.repository.PhotoStreamRepository;
 import com.vishnus1224.flickflipper.repository.PhotoStreamRepositoryImpl;
+import com.vishnus1224.flickflipper.usecase.GetPublicPhotoStreamUseCase;
+import com.vishnus1224.flickflipper.usecase.UseCase;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -55,6 +59,18 @@ public class ActivityModule {
     PhotoStreamRepository providePhotoStreamRepository(PhotoStreamRepositoryImpl photoStreamRepositoryImpl){
 
         return photoStreamRepositoryImpl;
+
+    }
+
+    /**
+     * Provides use case for fetching public photo stream.
+     * @param getPublicPhotoStreamUseCase GetPublicPhotoStreamUseCase instance.
+     * @return GetPublicPhotoStreamUseCase instance.
+     */
+    @Provides @PerActivity @Named("publicPhotoStream")
+    UseCase providePublicPhotoStreamUseCase(GetPublicPhotoStreamUseCase getPublicPhotoStreamUseCase){
+
+        return getPublicPhotoStreamUseCase;
 
     }
 }
