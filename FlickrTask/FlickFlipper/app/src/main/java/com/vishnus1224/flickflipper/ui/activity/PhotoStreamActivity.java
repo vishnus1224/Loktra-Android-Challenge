@@ -1,6 +1,7 @@
 package com.vishnus1224.flickflipper.ui.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
@@ -10,13 +11,19 @@ import com.vishnus1224.flickflipper.di.component.ActivityComponent;
 import com.vishnus1224.flickflipper.di.component.DaggerActivityComponent;
 import com.vishnus1224.flickflipper.di.module.ActivityModule;
 import com.vishnus1224.flickflipper.model.PhotoInfoWrapper;
+import com.vishnus1224.flickflipper.ui.presenter.PhotoStreamPresenter;
 import com.vishnus1224.flickflipper.ui.view.PhotoStreamView;
+
+import javax.inject.Inject;
 
 
 public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView{
 
     private GridView photoStreamGridView;
     private ProgressBar progressBar;
+
+    @Inject
+    PhotoStreamPresenter photoStreamPresenter;
 
     private ActivityComponent activityComponent;
 
@@ -28,6 +35,17 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
         setupViews();
 
         injectDependencies();
+
+        setupPresenter();
+
+        fetchPublicPhotoStream();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        photoStreamPresenter.onViewDetached();
     }
 
     private void setupViews() {
@@ -48,6 +66,22 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
         activityComponent.inject(this);
 
     }
+
+
+    private void setupPresenter() {
+
+        photoStreamPresenter.onViewAttached(this);
+
+    }
+
+
+    private void fetchPublicPhotoStream() {
+
+        photoStreamPresenter.getPublicPhotoStream();
+
+    }
+
+
 
     @Override
     public void showProgressBar() {
@@ -70,6 +104,17 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
 
     @Override
     public void showError(String message) {
+
+        Snackbar.make(photoStreamGridView, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        photoStreamPresenter.retryLoadingPhotoStream();
+
+                    }
+                })
+                .show();
 
     }
 }
