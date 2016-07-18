@@ -9,6 +9,7 @@ public class PhotoInfo {
     private String title;
     private String link;
     private PhotoInfoMedia media;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -20,5 +21,16 @@ public class PhotoInfo {
 
     public PhotoInfoMedia getMedia() {
         return media;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public PhotoInfo(String title, String link, PhotoInfoMedia media, String description) {
+        this.title = title;
+        this.link = link;
+        this.media = media;
+        this.description = description;
     }
 }

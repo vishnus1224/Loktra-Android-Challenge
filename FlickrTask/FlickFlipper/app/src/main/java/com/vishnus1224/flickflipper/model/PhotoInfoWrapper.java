@@ -12,4 +12,8 @@ public class PhotoInfoWrapper {
     public List<PhotoInfo> getItems() {
         return items;
     }
+
+    public PhotoInfoWrapper(List<PhotoInfo> items) {
+        this.items = items;
+    }
 }

@@ -10,6 +10,10 @@ public class PhotoInfoMedia {
     @SerializedName("m")
     private String mediaUrl;
 
+    public PhotoInfoMedia(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
     public String getMediaUrl() {
         return mediaUrl;
     }
