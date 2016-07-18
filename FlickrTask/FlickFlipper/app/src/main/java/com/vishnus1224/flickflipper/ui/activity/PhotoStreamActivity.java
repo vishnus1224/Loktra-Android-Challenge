@@ -11,6 +11,7 @@ import com.vishnus1224.flickflipper.di.component.ActivityComponent;
 import com.vishnus1224.flickflipper.di.component.DaggerActivityComponent;
 import com.vishnus1224.flickflipper.di.module.ActivityModule;
 import com.vishnus1224.flickflipper.model.PhotoInfoWrapper;
+import com.vishnus1224.flickflipper.ui.adapter.PhotoStreamGridAdapter;
 import com.vishnus1224.flickflipper.ui.presenter.PhotoStreamPresenter;
 import com.vishnus1224.flickflipper.ui.view.PhotoStreamView;
 
@@ -25,6 +26,9 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
     @Inject
     PhotoStreamPresenter photoStreamPresenter;
 
+    @Inject
+    PhotoStreamGridAdapter photoStreamGridAdapter;
+
     private ActivityComponent activityComponent;
 
     @Override
@@ -37,6 +41,8 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
         injectDependencies();
 
         setupPresenter();
+
+        setupAdapter();
 
         fetchPublicPhotoStream();
     }
@@ -74,6 +80,12 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
 
     }
 
+    private void setupAdapter() {
+
+        photoStreamGridView.setAdapter(photoStreamGridAdapter);
+
+    }
+
 
     private void fetchPublicPhotoStream() {
 
@@ -99,6 +111,8 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
 
     @Override
     public void showPhotos(PhotoInfoWrapper photoInfoWrapper) {
+
+        photoStreamGridAdapter.updateDataSet(photoInfoWrapper.getItems());
 
     }
 
