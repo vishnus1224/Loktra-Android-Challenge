@@ -45,6 +45,14 @@ public class PhotoStreamPresenter {
 
     }
 
+    public void retryLoadingPhotoStream(){
+
+        photoStreamView.showProgressBar();
+
+        useCase.execute(new PhotoStreamSubscriber());
+
+    }
+
     private final class PhotoStreamSubscriber extends Subscriber<PhotoInfoWrapper> {
 
         @Override
