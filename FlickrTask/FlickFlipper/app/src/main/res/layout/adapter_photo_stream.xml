@@ -7,17 +7,22 @@
     <RelativeLayout
         android:id="@+id/adapterPhotoStreamBackView"
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/adapterBackViewPhotoTitle"
             android:layout_centerInParent="true"
+            android:maxLines="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/adapterBackViewPhotoDimens"
             android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            android:gravity="center"
             android:layout_below="@id/adapterBackViewPhotoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
