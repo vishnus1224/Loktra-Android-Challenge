@@ -3,13 +3,17 @@ package com.vishnus1224.flickflipper.ui.activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.vishnus1224.flickflipper.R;
 import com.vishnus1224.flickflipper.di.component.ActivityComponent;
 import com.vishnus1224.flickflipper.di.component.DaggerActivityComponent;
 import com.vishnus1224.flickflipper.di.module.ActivityModule;
+import com.vishnus1224.flickflipper.manager.AnimationManager;
+import com.vishnus1224.flickflipper.model.PhotoInfo;
 import com.vishnus1224.flickflipper.model.PhotoInfoWrapper;
 import com.vishnus1224.flickflipper.ui.adapter.PhotoStreamGridAdapter;
 import com.vishnus1224.flickflipper.ui.presenter.PhotoStreamPresenter;
@@ -18,7 +22,7 @@ import com.vishnus1224.flickflipper.ui.view.PhotoStreamView;
 import javax.inject.Inject;
 
 
-public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView{
+public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView, AdapterView.OnItemClickListener {
 
     private GridView photoStreamGridView;
     private ProgressBar progressBar;
@@ -28,6 +32,9 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
 
     @Inject
     PhotoStreamGridAdapter photoStreamGridAdapter;
+
+    @Inject
+    public AnimationManager animationManager;
 
     private ActivityComponent activityComponent;
 
@@ -44,8 +51,14 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
 
         setupAdapter();
 
+        initAnimationManager();
+
         fetchPublicPhotoStream();
+
+        setGridViewClickListener();
+
     }
+
 
     @Override
     protected void onDestroy() {
@@ -87,11 +100,26 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
     }
 
 
+    private void initAnimationManager() {
+
+        animationManager.init();
+
+    }
+
+
     private void fetchPublicPhotoStream() {
 
         photoStreamPresenter.getPublicPhotoStream();
 
     }
+
+
+    private void setGridViewClickListener() {
+
+        photoStreamGridView.setOnItemClickListener(this);
+
+    }
+
 
 
 
@@ -130,5 +158,37 @@ public class PhotoStreamActivity extends BaseActivity implements PhotoStreamView
                 })
                 .show();
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        PhotoInfo photoInfo = (PhotoInfo) photoStreamGridAdapter.getItem(i);
+
+        PhotoStreamGridAdapter.PhotoStreamViewHolder holder = (PhotoStreamGridAdapter.PhotoStreamViewHolder) view.getTag();
+
+        animateViews(photoInfo, holder.frontView, holder.backView);
+    }
+
+
+    private void animateViews(PhotoInfo photoInfo, ImageView frontView, View backView) {
+
+        if(photoInfo.getVisibleSide() == PhotoInfo.Side.FRONT || photoInfo.getVisibleSide() == null){
+
+            animationManager.setFlipOutAnimationTarget(frontView);
+            animationManager.setFlipInAnimationTarget(backView);
+
+            photoInfo.setVisibleSide(PhotoInfo.Side.BACK);
+
+        }else{
+
+            animationManager.setFlipOutAnimationTarget(backView);
+            animationManager.setFlipInAnimationTarget(frontView);
+
+            photoInfo.setVisibleSide(PhotoInfo.Side.FRONT);
+
+        }
+
+        animationManager.startAnimations();
     }
 }
