@@ -16,6 +16,7 @@ public class PhotoInfo {
     private String link;
     private PhotoInfoMedia media;
     private String description;
+    private PhotoMetadata photoMetadata;
     private Side visibleSide = Side.FRONT;
 
     public String getTitle() {
@@ -40,6 +41,18 @@ public class PhotoInfo {
 
     public void setVisibleSide(Side visibleSide) {
         this.visibleSide = visibleSide;
+    }
+
+    public PhotoMetadata getPhotoMetaData(){
+
+        if(photoMetadata == null){
+
+            photoMetadata = new PhotoMetadata(description);
+
+        }
+
+        return photoMetadata;
+
     }
 
     public PhotoInfo(String title, String link, PhotoInfoMedia media, String description) {
