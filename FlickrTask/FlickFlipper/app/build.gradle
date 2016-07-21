@@ -48,4 +48,7 @@ dependencies {
 
     //picasso dependency
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //jsoup dependency
+    compile 'org.jsoup:jsoup:1.7.3'
 }
